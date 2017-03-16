@@ -1,0 +1,38 @@
+# Site settings
+title:          Andrew Cz
+description:    'Using liberty-minded opensource tools, and using them well'
+url:            'andrewcz.com'
+baseurl:        '/'
+
+author:
+  name:                 'Andrew Cz'
+  email:                andrewcz@neomailbox.net
+  twitter_username:
+  bitcoin_address: 18j2TVpfZtDFoi7EpxXgEKh1954p2S39en
+  github_username:      smacz42
+  linkedin_username:
+
+defaults:
+  -
+    scope:
+      path: ''
+      type: 'posts'
+    values:
+        layout: 'post'
+
+# Build settings
+destination:    _site
+paginate:       10
+permalink:      /:year/:title/
+markdown:       kramdown
+highlighter:    rouge
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  # do not replace newlines by <br>s
+  hard_wrap: false
+  auto_id_prefix: '#'
+
+gems: ['jekyll-paginate']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'InProgress', 'Reference']

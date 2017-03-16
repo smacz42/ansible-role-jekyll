@@ -1,0 +1,20 @@
+/* 
+This CSS resource incorporates links to font software which is 
+the valuable copyrighted property of WebType LLC, The Font Bureau 
+and/or their suppliers. You may not attempt to copy, install, 
+redistribute, convert, modify or reverse engineer this font 
+software. Please contact WebType with any questions: www.webtype.com
+*/
+
+body:after { content: ''; background-image: url(//pls.webtype.com/v.gif?ct=191118,191118,191118,191118&r=78266&p=74027&h=%2fFiKQELx8Q6onhWbhICrCg%3d%3d); }
+
+@font-face {
+ font-family: "Benton Sans";
+ src: url("//cloud.webtype.com/webtype/ff2/2/9193dd52-2119-4148-a2b2-cb07b664cc56?ec_token=8f7c4c4997246fd7fa920074c9943b56e275c1464a6623be6d0d8d11da52d7c227b022152b6fe02974ba7cec4f59ffc6c37986e6ef27e085fc8f5764062500816781fcda65208c01eddf4cfcc97b093f73c555fc24a3cb813c5b76c8e92ac76c61aabe7bbbf590618761fd35b0b6181610");
+ src:  url("//cloud.webtype.com/webtype/ff2/2/9193dd52-2119-4148-a2b2-cb07b664cc56?ec_token=8f7c4c4997246fd7fa920074c9943b56e275c1464a6623be6d0d8d11da52d7c227b022152b6fe02974ba7cec4f59ffc6c37986e6ef27e085fc8f5764062500816781fcda65208c01eddf4cfcc97b093f73c555fc24a3cb813c5b76c8e92ac76c61aabe7bbbf590618761fd35b0b6181610#iefix")  format("embedded-opentype"),
+  url("//cloud.webtype.com/webtype/ff2/3/2dbf1b76-ec76-4ccc-bca9-63428ea240ed?ec_token=8f7c4c4997246fd7fa920074c9943b56e275c1464a6623be6d0d8d11da52d7c227b022152b6fe02975ba77b9140caac0843fb8799519d0a0ac995e4ccc72082f0fec41288872b1f87ec6252d1d90513b66efa571aae78ef705ce2ff8149d5ab9a2072eb1ac37e5adb7c112b9f866bdfebe") format("woff"),
+  url("//cloud.webtype.com/webtype/ff2/1/38d27872-4ada-4eff-9952-526f4e11c9c5?ec_token=8f7c4c4997246fd7fa920074c9943b56e275c1464a6623be6d0d8d11da52d7c227b022152b6fe02977ba76e51258ac9ab9ccca0e27f346a6222ac109e805ffb291b228d302ed3d8b9cfb4b51f4594d080642682b44ce34b533cdfa9fa4eb7cebfeb34d87f4e29db600db011ea05e172656") format("truetype"),
+  url("//cloud.webtype.com/webtype/ff2/4/2ef3b189-b1fc-4135-9064-db871b64f90e?ec_token=8f7c4c4997246fd7fa920074c9943b56e275c1464a6623be6d0d8d11da52d7c227b022152b6fe02972ba77b81059f993ac937017a9374bf8dc258eeb24ee0632dd3349438b78db0fb9be7a7bba13b50c10a0f205aa3928ba40dcbb9236b1b0af65f770b1b7f55b20c7a70e4ccf2e340e08#web") format("svg");
+ font-style: normal;
+ font-weight: bold;
+}

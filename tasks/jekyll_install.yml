@@ -1,0 +1,34 @@
+---
+
+- name: (jekyll_install) [1/4]Jekyll dependencies are installed
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - ruby
+    - ruby-devel
+    - gcc
+
+- name: (jekyll_install) [2/4] Jekyll installed via gem
+  gem:
+    name: "{{ item }}"
+    include_dependencies: yes
+    state: latest
+  with_items:
+    - jekyll
+    - jekyll-paginate
+
+- name: (jekyll_install) [3/4] Jekyll in ~/.gem/bin is symlinked to /usr/local/bin
+  file:
+    name: "/usr/local/bin/jekyll"
+    src: "/root/.gem/ruby/bin/jekyll"
+    state: link
+
+- name: (jekyll_install) [4/4] Permissions on jekyll dir are correct
+  file:
+    path: "{{ jekyll_root_dir }}"
+    owner: root
+    group: apache
+    mode: 0750
+    recurse: no
+    state: directory

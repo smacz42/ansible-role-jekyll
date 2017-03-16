@@ -1,0 +1,6 @@
+---
+
+* Changed IP address on router to static, and Network Manager didn't
+register the change, resulting in my losing connection to the box - no
+ability to ssh into the old IP or new. Fixed by restarting
+NetworkManager via virt-manager console.

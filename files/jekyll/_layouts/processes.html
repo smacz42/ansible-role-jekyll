@@ -1,0 +1,56 @@
+---
+layout: default
+---
+{% assign processes_string = " " %}
+<!-- iterate through all the posts on the site -->
+{% for post in site.posts  %}
+    {% unless processes_string contains post.process %}
+        <!-- gather all of the processes -->
+        {% if post.process contains ' ' %}
+            {% assign post_process = post.process | replace ' ', '%20' %}
+        {% else %}
+            {% assign post_process = post.process %}
+        {% endif %}
+        {% assign processes_string = processes_string | append: post.process | append: " " %}
+    {% endunless %}
+{% endfor %}
+
+<!-- strip all surrounding whitespace and strip on space -->
+{% assign processes_array = processes_string | strip | split: ' ' %}
+
+<h2>Processes:</h2>
+<div class="categories">
+{% for processes in processes_array %}
+    {% if processes contains "%20" %}
+        {% assign process = processes | replace: '%20', ' ' %}
+    {% else %}
+        {% assign process = processes %}
+    {% endif %}
+        <a href="#{{ process }}">{{ process }}</a>
+{% endfor %}
+</div>
+
+<!-- iterate through all processes on the site --> 
+{% for processes in processes_array %} 
+    {% if processes contains "%20" %}
+        {% assign process = processes | replace: '%20', ' ' %}
+    {% else %}
+        {% assign process = processes %}
+    {% endif %}
+  <!-- for each tag, create an anchor by using the tag name as an id --> 
+  <div id="{{ process }}">  
+    <h3> {{ process }} </h3>  <!-- for create a heading --> 
+
+    <ul> <!-- create the list of posts -->
+      <!-- iterate through all the posts on the site --> 
+      {% for post in site.posts %} 
+        <!-- list only those which contain the current tag --> 
+        {% if post.process contains process %} 
+            <li>
+              <a href="{{ post.url }}">{{ post.title }}</a>
+            </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}

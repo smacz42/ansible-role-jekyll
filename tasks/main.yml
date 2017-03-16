@@ -1,0 +1,9 @@
+---
+# Tasks for jekyll
+
+- include: jekyll_install.yml
+  tags: [jekyll,jekyll_install,install]
+
+- include: jekyll_config.yml
+  tags: [jekyll,jekyll_config,config]
+

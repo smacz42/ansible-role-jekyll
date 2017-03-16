@@ -1,0 +1,49 @@
+---
+layout: default
+---
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h2 class="post-title">{{ page.title }}</h2>
+    <!-- <h3><div class="description">{{ page.description }}</div></h3> -->
+    <p class="excerpt">{{ post.description }}</p>
+    <div class="post-meta">
+      <time datetime="{{ page.date | date: "%b %Y" }}" class="post-meta__date date">{{ page.date | date: "%b %Y" }}</time> &#8226; <span class="post-meta__tags">Category: <a href="{{ site.baseurl }}categories/#{{ page.category }}">{{ page.category }}</a></span> &#8226; <span class="post-meta__tags">Program: <a href="{{ site.baseurl }}programs/#{{ page.program }}">{{ page.program }}</a></span> &#8226; <span class="post-meta__tags">Process: <a href="{{ site.baseurl }}processes/#{{ page.process }}">{{ page.process }}</a></span>
+
+    </div>
+  </header>
+  <hr class="post-list__divider">
+  <section class="post">
+    {{ page.description }}
+  </section>
+  {% if page.repo %}
+  <br/>
+  <section class="post">
+  <a href="{{ page.repo }}">Clone the code. Here's the repo.</a>
+  </section>
+  {% endif %}
+  <hr class="post-list__divider">
+  <section class="post">
+    {{ content }}
+  </section>
+  {% if page.references %}
+  <hr class="post-list__divider">
+  <section class="post">
+    <h1 class="post-title">References:</h1>
+    <ul>
+    {% for reference in page.references %}
+        <li><a href="{{ reference.link }}">{{ reference.title }}</a></li>
+    {% endfor %}
+    <ul>
+  </section>
+  {% endif %}
+</article>
+<script>
+var headings = document.querySelectorAll("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]");
+
+for (var i = 0; i < headings.length; i++) {
+        headings[i].innerHTML =
+    '<a href="#' + headings[i].id + '">' +
+                    headings[i].innerText +
+                '</a>';
+    }
+</script>

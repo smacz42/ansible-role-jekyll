@@ -1,0 +1,8 @@
+---
+
+################################################################################### CHANGE ME
+
+jekyll_root_dir: /var/www/html/jekyll
+
+# For special apache config
+httpd_tls_enforce: true

@@ -1,0 +1,56 @@
+---
+layout: default
+---
+{% assign programs_string = " " %}
+<!-- iterate through all the posts on the site -->
+{% for post in site.posts  %}
+    {% unless programs_string contains post.program %}
+        <!-- gather all of the programs -->
+        {% if post.program contains ' ' %}
+            {% assign post_program = post.program | replace: ' ', '%20' %}
+        {% else %}
+            {% assign post_program = post.program %}
+        {% endif %}
+        {% assign programs_string = programs_string | append: post_program | append: ' ' %}
+    {% endunless %}
+{% endfor %}
+
+<!-- strip all surrounding whitespace and strip on space -->
+{% assign programs_array = programs_string | strip | split: ' ' | sort %}
+
+<h2>Programs:</h2>
+<div class="categories"> 
+{% for programs in programs_array %} 
+    {% if programs contains "%20" %}
+        {% assign program = programs | replace: '%20', ' ' %}
+    {% else %}
+        {% assign program = programs %}
+    {% endif %}
+      <a href="#{{ program }}">{{ program }}</a>
+{% endfor %}
+</div>
+
+<!-- iterate through all categories on the site --> 
+{% for programs in programs_array %} 
+    {% if programs contains "%20" %}
+        {% assign program = programs | replace: '%20', ' ' %}
+    {% else %}
+        {% assign program = programs %}
+    {% endif %}
+  <!-- for each tag, create an anchor by using the tag name as an id --> 
+  <div id="{{ program }}">  
+    <h3> {{ program }} </h3>  <!-- for create a heading --> 
+
+    <ul> <!-- create the list of posts -->
+      <!-- iterate through all the posts on the site --> 
+      {% for post in site.posts %} 
+        <!-- list only those which contain the current tag --> 
+        {% if post.program contains program %} 
+            <li>
+              <a href="{{ post.url }}">{{ post.title }}</a>
+            </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
