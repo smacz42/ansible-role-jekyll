@@ -1,11 +1,11 @@
 # Site settings
-title:          Andrew Cz
+title:          AndrewCz - Blog
 description:    'Using liberty-minded opensource tools, and using them well'
 url:            'andrewcz.com'
 baseurl:        '/'
 
 author:
-  name:                 'Andrew Cz'
+  name:                 'AndrewCz'
   email:                andrewcz@neomailbox.net
   twitter_username:
   bitcoin_address: 18j2TVpfZtDFoi7EpxXgEKh1954p2S39en
