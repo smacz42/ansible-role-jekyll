@@ -11,12 +11,20 @@ layout: default
 
     </div>
   </header>
+  {% if page.image %}
+  <hr class="post-list__divider">
+  <br/>
+  <section class="post">
+  <p><img src="/images/{{ page.image }}" /></p>
+  </section>
+  {% endif %}
   <hr class="post-list__divider">
   <section class="post">
     {{ page.description }}
   </section>
   {% if page.repo %}
   <br/>
+  <hr class="post-list__divider">
   <section class="post">
   <a href="{{ page.repo }}">Clone the code. Here's the repo.</a>
   </section>

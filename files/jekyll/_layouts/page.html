@@ -9,8 +9,7 @@ layout: default
       <time datetime="{{ page.date | date: "%b %Y" }}" class="post-meta__date date">{{ page.date | date: "%b %Y" }}</time> &#8226; <span class="post-meta__tags">Category: <a href="{{ site.baseurl }}categories/#{{ page.category }}">{{ page.category }}</a></span> &#8226; <span class="post-meta__tags">Program: <a href="{{ site.baseurl }}programs/#{{ page.program }}">{{ page.program }}</a></span> &#8226; <span class="post-meta__tags">Process: <a href="{{ site.baseurl }}processes/#{{ page.process }}">{{ page.process }}</a></span>
 
     </div>
-    <!-- <h3><div class="description">{{ page.description }}</div></h3> -->
-    <p class="excerpt">{{ post.description }}</p>
+    <p class="excerpt">{{ page.description }}</p>
   </header>
 
   <section class="post">
