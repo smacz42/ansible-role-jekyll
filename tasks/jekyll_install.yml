@@ -11,12 +11,13 @@
 
 - name: (jekyll_install) [2/4] Jekyll installed via gem
   gem:
-    name: "{{ item }}"
+    name: "{{ item.gem }}"
+    version: "{{ item.version }}"
+    state: present
     include_dependencies: yes
-    state: latest
   with_items:
-    - jekyll
-    - jekyll-paginate
+    - { gem: jekyll, version: 3.4.5 }
+    - { gem: jekyll-paginate, version: 1.1.0 }
 
 - name: (jekyll_install) [3/4] Jekyll in ~/.gem/bin is symlinked to /usr/local/bin
   file:

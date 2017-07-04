@@ -1,35 +1,22 @@
 ---
 
-- name: (jekyll_config) [1/5] Jekyll skeleton deployed
+- name: (jekyll_config) [1/3] Jekyll skeleton deployed
   synchronize:
-    src: "../files/jekyll"
-    dest: "/usr/local/share/"
-    links: no
-
-- name: (jekyll_config) [2/5] Permissions on posts dir are correct
-  file:
-    path: "/usr/local/share/jekyll/_posts"
-    owner: root
-    group: root
-    mode: 0750
-    recurse: no
-    state: directory
-
-- name: (jekyll_config) [3/5] Jekyll posts deployed
-  synchronize:
-    src: "/home/smacz/.local/posts/"
-    dest: "/usr/local/share/jekyll/_posts/"
+    src: "{{ jekyll_skeleton }}/"
+    dest: "/usr/local/share/jekyll"
+    archive: yes
+    copy_links: yes
     rsync_opts:
       - "--exclude=.git"
       - "--no-motd"
 
-- name: (jekyll_config) [4/5] Correct permissions on jekyll dir
+- name: (jekyll_config) [2/3] Correct permissions on jekyll dir
   file:
     name: "/usr/local/share/jekyll"
     owner: root
     group: root
-    mode: 644
+    mode: 0644
     recurse: yes
 
-- name: (jekyll_config) [5/5] Jekyll build and deploy site remotely
-  command: "jekyll build --source /usr/local/share/jekyll --destination /var/www/html/jekyll"
+- name: (jekyll_config) [3/3] Jekyll build and deploy site remotely
+  command: "jekyll build --source /usr/local/share/jekyll --destination {{ jekyll_root_dir }}"
