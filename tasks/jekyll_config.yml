@@ -1,22 +1,57 @@
 ---
 
-- name: (jekyll_config) [1/3] Jekyll skeleton deployed
+- name: (jekyll_config) Jekyll source directory created with correct permissions
+  file:
+    path: "/usr/local/share/jekyll"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    recurse: yes
+    mode: u=rwX,g=rX,o=rX
+
+- name: (jekyll_config) Jekyll skeleton deployed
+  # Since synchronize by default with become will only accept passwordless
+  # sudo, and we want to stay away from that, we turn become off, and set the
+  # permissions on the directory to the ssh user before
+  become: no
   synchronize:
     src: "{{ jekyll_skeleton }}/"
-    dest: "/usr/local/share/jekyll"
+    dest: "/usr/local/share/jekyll/"
     archive: yes
+    owner: no
+    group: no
     copy_links: yes
     rsync_opts:
       - "--exclude=.git"
+      - "--exclude=Gemfile.lock"
       - "--no-motd"
 
-- name: (jekyll_config) [2/3] Correct permissions on jekyll dir
-  file:
-    name: "/usr/local/share/jekyll"
-    owner: root
-    group: root
+- name: (jekyll_config) Deploy apache config file
+  template:
+    src: ../templates/jekyll.conf.j2
+    dest: /etc/httpd/conf.d/jekyll.conf
+    owner: apache
+    group: apache
     mode: 0644
-    recurse: yes
+  notify: Restart httpd
 
-- name: (jekyll_config) [3/3] Jekyll build and deploy site remotely
-  command: "jekyll build --source /usr/local/share/jekyll --destination {{ jekyll_root_dir }}"
+- name: (jekyll_config) Jekyll build and deploy site remotely
+  command: "/usr/local/bin/jekyll build --source /usr/local/share/jekyll --destination /srv/{{ httpd_webservice }}"
+  when: jekyll_deploy_method == 'jekyll'
+
+- name: (jekyll_config) Bundle build remotely
+  command: "/usr/local/bin/bundle exec /usr/local/bin/rake {{ jekyll_bundle_exec_rake }}"
+  args:
+    chdir: '/usr/local/share/jekyll'
+  when: jekyll_deploy_method == 'rake'
+
+- name: (jekyll_config) Deploy site remotely
+  synchronize:
+    src: "/usr/local/share/jekyll/_site/"
+    dest: "/srv/{{ httpd_webservice }}/"
+    archive: yes
+    owner: no
+    group: no
+    rsync_path: 'sudo /usr/bin/rsync'
+  delegate_to: "{{ inventory_hostname }}"
+  when: jekyll_deploy_method == 'rake'

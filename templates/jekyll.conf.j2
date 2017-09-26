@@ -1,0 +1,61 @@
+# {{ ansible_managed }}
+
+<VirtualHost _default_:443>
+
+# General setup for the virtual host, inherited from global configuration
+
+DocumentRoot /srv/{{ httpd_webservice }}
+ServerName {{ ansible_fqdn }}:443
+
+# Use separate log files for the SSL virtual host; note that LogLevel
+# is not inherited from httpd.conf.
+ErrorLog logs/{{ httpd_webservice }}_error_log
+TransferLog logs/{{ httpd_webservice }}_access_log
+LogLevel warn
+
+# Load index.html if directory is requested
+<IfModule dir_module>
+    DirectoryIndex index.html
+</IfModule>
+
+# Prevent .htaccess and .htpasswd files from being viewed by Web clients.
+<Files ".ht*">
+    Require all denied
+</Files>
+
+# Further relax access to the default document root:
+<Directory "/srv/{{ httpd_webservice }}">
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+</Directory>
+
+<IfModule log_config_module>
+    LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+    LogFormat "%h %l %u %t \"%r\" %>s %b" common
+
+    <IfModule logio_module>
+      # You need to enable mod_logio.c to use %I and %O
+      LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio
+    </IfModule>
+
+    CustomLog "logs/{{ httpd_webservice }}_access_log" combined
+</IfModule>
+
+# Mime types
+<IfModule mime_module>
+    TypesConfig /etc/mime.types
+
+    AddType application/x-compress .Z
+    AddType application/x-gzip .gz .tgz
+    AddType text/html .shtml
+    AddOutputFilter INCLUDES .shtml
+</IfModule>
+
+AddDefaultCharset UTF-8
+
+#   SSL Engine Switch:
+#   Enable/Disable SSL for this virtual host.
+SSLEngine on
+
+</VirtualHost>

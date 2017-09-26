@@ -1,6 +1,6 @@
 ---
 
-- name: (jekyll_install) [1/4]Jekyll dependencies are installed
+- name: (jekyll_install) dependencies are installed
   package:
     name: "{{ item }}"
     state: latest
@@ -8,26 +8,24 @@
     - ruby
     - ruby-devel
     - gcc
+    - libxml2-devel
+    - zlib-devel
+    - redhat-rpm-config
 
-- name: (jekyll_install) [2/4] Jekyll installed via gem
+# `state: latest` will not work
+# https://centos.org/forums/viewtopic.php?t=63143&p=266016#p266047
+- name: (jekyll_install) Jekyll and deps installed via gem
   gem:
     name: "{{ item.gem }}"
     version: "{{ item.version }}"
     state: present
     include_dependencies: yes
-  with_items:
-    - { gem: jekyll, version: 3.4.5 }
-    - { gem: jekyll-paginate, version: 1.1.0 }
+    user_install: no
+  with_items: "{{ jekyll_gem_packages }}"
 
-- name: (jekyll_install) [3/4] Jekyll in ~/.gem/bin is symlinked to /usr/local/bin
+- name: (jekyll_install) Permissions on jekyll dir are correct
   file:
-    name: "/usr/local/bin/jekyll"
-    src: "/root/.gem/ruby/bin/jekyll"
-    state: link
-
-- name: (jekyll_install) [4/4] Permissions on jekyll dir are correct
-  file:
-    path: "{{ jekyll_root_dir }}"
+    path: "/srv/{{ httpd_webservice }}"
     owner: root
     group: apache
     mode: 0750
