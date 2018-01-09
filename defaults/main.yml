@@ -2,9 +2,6 @@
 
 ################################################################################### CHANGE ME
 
-httpd_webservice: jekyll
+################################################################################### SANE DEFAULTS
 
-jekyll_gem_packages:
-  - { gem: jekyll, version: 3.4.5 }
-  - { gem: jekyll-paginate, version: 1.1.0 }
-  - { gem: json, version: 2.1.0 }
+httpd_webservice: jekyll

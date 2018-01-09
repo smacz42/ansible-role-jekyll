@@ -4,7 +4,7 @@
 
 # General setup for the virtual host, inherited from global configuration
 
-DocumentRoot /srv/{{ httpd_webservice }}
+DocumentRoot {{ httpd_DocumentRoot }}/{{ httpd_webservice }}
 ServerName {{ ansible_fqdn }}:443
 
 # Use separate log files for the SSL virtual host; note that LogLevel
@@ -24,7 +24,7 @@ LogLevel warn
 </Files>
 
 # Further relax access to the default document root:
-<Directory "/srv/{{ httpd_webservice }}">
+<Directory "{{ httpd_DocumentRoot }}/{{ httpd_webservice }}">
     Options Indexes FollowSymLinks
     AllowOverride None
     Require all granted
